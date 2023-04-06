@@ -6,7 +6,8 @@ import '../dialogs/app_info_dialog.dart';
 import '../dialogs/delete_dialog.dart';
 import '../models/todo.dart';
 import 'delete_button.dart';
-import 'package:share_plus/share_plus.dart';
+
+import '../pages/detail.dart';
 
 class TodoPage extends StatelessWidget {
   final Todo todo;
@@ -20,19 +21,12 @@ class TodoPage extends StatelessWidget {
     final todosCubit = context.read<TodosCubit>();
     return InkWell(
       onDoubleTap: () async {
-        Share.share(
-          todo.title,
-          subject: 'Todo',
+        Navigator.push(
+          context,
+          MaterialPageRoute(
+            builder: (context) => Detail(todo: todo),
+          ),
         );
-
-        // await Share.shareWithResult(todo.title, subject: 'Todo');
-
-        // Navigator.push(
-        //   context,
-        //   MaterialPageRoute(
-        //     builder: (context) => DetailTodo(todo: todo),
-        //   ),
-        // );
       },
       onLongPress: () {
         _editTitleTodo(
@@ -107,6 +101,7 @@ Future<dynamic> _editTitleTodo(
   required Function(String) onPressed,
 }) {
   final controller = TextEditingController(text: todo.title);
+  final text = controller.text;
   return showDialog(
     context: context,
     builder: (context) {
@@ -124,7 +119,7 @@ Future<dynamic> _editTitleTodo(
           ),
           TextButton(
             onPressed: () {
-              onPressed(controller.text);
+              onPressed(text);
               Navigator.pop(context);
             },
             child: const Text('Ok'),
