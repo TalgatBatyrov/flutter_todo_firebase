@@ -13,7 +13,6 @@ class TodoApi {
 
   Future<bool> createTodo(String title) async {
     final id = firestore.collection('todos').doc().id;
-
     final snapshot = await firestore.collection('todos').get();
     // if title already exists no need to create
     if (snapshot.docs
@@ -45,7 +44,6 @@ class TodoApi {
     );
   }
 
-  // selected all
   Future<void> selectAllTodos(bool select) async {
     final snapshot = await firestore.collection('todos').get();
     for (final doc in snapshot.docs) {
@@ -76,7 +74,6 @@ class TodoApi {
     }
   }
 
-  // fetch favorite todos
   Future<List<Todo>> fetchFavoriteTodos() async {
     final snapshot = await firestore.collection('todos').where('isFavorite', isEqualTo: true).get();
     return snapshot.docs.map((doc) => Todo.fromJson(doc)).toList();
@@ -91,5 +88,10 @@ class TodoApi {
         'isFavorite': isFavorite,
       },
     );
+  }
+
+  Future<Todo> fetchTodoById(String id) async {
+    final snapshot = await firestore.collection('todos').doc(id).get();
+    return Todo.fromJson(snapshot);
   }
 }

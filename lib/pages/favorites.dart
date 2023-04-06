@@ -2,7 +2,6 @@ import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_todo/blocs/todos_cubit/todos_cubit.dart';
 import 'package:flutter_todo/blocs/todos_cubit/todos_state.dart';
-
 import '../widgets/loading_widget.dart';
 import '../widgets/todo_page.dart';
 

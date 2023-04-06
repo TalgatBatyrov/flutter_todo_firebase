@@ -68,8 +68,6 @@ class TodosCubit extends Cubit<TodosState> {
     }
   }
 
-  // fetch favorite todos
-
   Future<void> fetchFavoriteTodos() async {
     try {
       final favorites = await _api.fetchFavoriteTodos();
@@ -84,6 +82,16 @@ class TodosCubit extends Cubit<TodosState> {
       await _api.favoriteChanged(id: id, isFavorite: isFavorite);
     } catch (e) {
       emit(TodosError(e.toString()));
+    }
+  }
+
+  Future<Todo> fetchTodoById(String id) async {
+    try {
+      final todo = await _api.fetchTodoById(id);
+      return todo;
+    } catch (e) {
+      emit(TodosError(e.toString()));
+      rethrow;
     }
   }
 

@@ -15,12 +15,6 @@ class Todo {
     this.completed = false,
   });
 
-  // Todo.fromJson(Map<String, dynamic> json)
-  //     : id = json['id'],
-  //       title = json['title'],
-  //       createdAt = (json['createdAt'] as Timestamp).toDate(),
-  //       completed = json['completed'];
-
   Map<String, dynamic> toJson() => {
         'id': id,
         'isFavorite': isFavorite,
